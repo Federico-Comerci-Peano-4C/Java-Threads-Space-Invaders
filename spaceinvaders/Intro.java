@@ -15,18 +15,27 @@ import java.awt.Graphics;
  */
 public class Intro extends Space {
 
+    private int i = 0;
+
+    void run() throws InterruptedException {
+        setBackground(Color.BLACK);
+        setSize(800, 600);
+
+        for (i = 100; i >= 0; i -= 1) {
+            System.out.println("i: " + i);
+            this.repaint();
+            Thread.sleep(50);
+        }
+    }
+
     @Override
     public void paint(Graphics g) {
 
         g.setColor(Color.red);
-        g.setFont(new Font("Bold", Font.PLAIN, 40));
-        g.drawString("Space Invaders", 100, 100);
-        g.setFont(new Font("Bold", Font.PLAIN, 10));
-        g.drawString("          by Federico Comerci", 110, 110);
-    }
-
-    void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        g.setFont(new Font("Bold", Font.PLAIN, 40 + i));
+        g.drawString("Space Invaders", 100 + i, 100 + i);
+        g.setFont(new Font("Bold", Font.PLAIN, 10 + i));
+        g.drawString("          by Federico Comerci", 110 + i, 110 + i);
     }
 
 }

@@ -7,7 +7,8 @@ package spaceinvaders;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferStrategy;
 
 /**
  *
@@ -16,26 +17,41 @@ import java.awt.Graphics;
 public class Intro extends Space {
 
     private int i = 0;
+    private BufferStrategy strategy;
 
     void run() throws InterruptedException {
-        setBackground(Color.BLACK);
-        setSize(800, 600);
-
+        createBufferStrategy(2);
+        strategy = getBufferStrategy();
         for (i = 100; i >= 0; i -= 1) {
             System.out.println("i: " + i);
-            this.repaint();
-            Thread.sleep(50);
+            paint();
+            Thread.sleep(10);
         }
+
+        for (i = 0; i < 10; i += 1) {
+            System.out.println("i: " + i);
+            paint();
+
+        }
+
     }
 
-    @Override
-    public void paint(Graphics g) {
+    public void paint() {
+        Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
+
+        g.setColor(Color.black);
+        g.fillRect(0, 0, 800, 600);
 
         g.setColor(Color.red);
-        g.setFont(new Font("Bold", Font.PLAIN, 40 + i));
+        g.setFont(new Font("Bold", Font.PLAIN, 50 + i));
         g.drawString("Space Invaders", 100 + i, 100 + i);
-        g.setFont(new Font("Bold", Font.PLAIN, 10 + i));
-        g.drawString("          by Federico Comerci", 110 + i, 110 + i);
+        g.setFont(new Font("Bold", Font.PLAIN, 5 + i));
+        g.drawString("          by Federico Comerci", 115 + i, 115 + i);
+
+        g.dispose();
+
+        strategy.show();
+
     }
 
 }
